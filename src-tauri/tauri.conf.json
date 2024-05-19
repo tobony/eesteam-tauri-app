@@ -55,8 +55,8 @@
     "windows": [
       {
         "fullscreen": false,
-        "width": 600,
-        "height": 850,
+        "width": 550,
+        "height": 900,
         "resizable": true,
         "title": "eeSteam App - Steam Table"
       }
