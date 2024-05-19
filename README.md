@@ -1,4 +1,6 @@
 # eeSteam App
 
 
-![image](https://github.com/tobony/eesteam-tauri-app/assets/55545136/d351cacc-9abd-4ac4-8225-96c4571e43cb)
+error non- click
+
+![image](https://github.com/tobony/eesteam-tauri-app/assets/55545136/0fe3184a-ccc8-4578-90e5-ae15964290e6)
