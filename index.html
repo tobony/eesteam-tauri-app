@@ -4,8 +4,6 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>eeSteam - IF97 Steam Table</title>
-
   <!-- <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -22,271 +20,275 @@
   <link rel="stylesheet" href="/src/assets/bootstrap.min.css" />
   <script type="module" src="/src/assets/bootstrap.bundle.min.js"></script>
   <script type="module" src="/src/assets/jquery.min.js"></script>
-  <!-- <script type="module" src="/loadscript.js"></script> -->
 </head>
-
 
 <body>
   <main class="container">
-    <div>
-      <h3>eeSteam IF97 steam table</h3>
-      <small>
-        <p>
-          <a href="https://kpatvt.github.io/steamycalc/details.html" target="_blank">Details & License</a>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <a href="https://theangkko.github.io/2023/20230529-steamtableonline/" target="_blank">Relative link-page</a>
-        </p>
-      </small>
+    <h3><b>eeSteam</b> - steam table IF97</h3>
+    <small>
+      <a href="https://github.com/tobony/eesteam-tauri-app" target="_blank">Github</a>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="https://eefunction-doc.pages.dev" target="_blank">App Manual</a>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      ver0.9
+    </small>
+    <p></p>
 
-      <!-- //// -->
-      <table class="table table-borderless table-sm table-striped" style="width: 100%">
-        <colgroup>
-          <col span="1" style="width: 50%;">
-          <col span="1" style="width: 25%;">
-          <col span="1" style="width: 25%;">
-        </colgroup>
-        <thead>
-          <tr>
-            <td>
-              <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="global_units"
-                onchange="set_global_units(this.value);check_specs_and_units()">
-                <option value="Industrial" selected>Industrial</option>
-                <option value="Metric">Metric</option>
-                <option value="SI">SI</option>
-                <option value="Imperial">Imperial</option>
-              </select>
-            </td>
-            <td colspan="2">
-              <div id="ready_to_calc" hidden>false</div>
-              <button type="button" class="btn btn-outline-primary btn-sm disabled" id="do_calc">
-                Enter two specifications
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="spec1_type"
-                onchange="set_spec_units(this.value, '#spec1_units', $('#global_units').val());check_specs_and_units()">
-                <option value="Press." selected>Pressure</option>
-                <option value="Temp.">Temperature</option>
-                <option value="Qual.">Quality</option>
-                <option value="Enthalpy">Enthalpy</option>
-                <option value="Entropy">Entropy</option>
-              </select>
-            </td>
-            <td>
-              <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="spec1_units"
-                onchange="check_specs_and_units()"></select>
-            </td>
-            <td>
-              <input class="form-control form-control-sm" type="number" aria-label=".form-control-sm example"
-                id="spec1_value" oninput="check_specs_and_units()" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="spec2_type"
-                onchange="set_spec_units(this.value, '#spec2_units',$('#global_units').val());check_specs_and_units()">
-                <option value="Press.">Pressure</option>
-                <option value="Temp." selected>Temperature</option>
-                <option value="Qual.">Quality</option>
-                <option value="Enthalpy">Enthalpy</option>
-                <option value="Entropy">Entropy</option>
-              </select>
-            </td>
-            <td>
-              <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="spec2_units"
-                onchange="check_specs_and_units()"></select>
-            </td>
-            <td>
-              <input class="form-control form-control-sm" type="number" aria-label=".form-control-sm example"
-                id="spec2_value" oninput="check_specs_and_units()" />
-            </td>
-          </tr>
-          <tr class="table-dark">
-            <td></td>
-            <td>Units</td>
-            <td>Value</td>
-          </tr>
-        </thead>
+    <!-- //// -->
+    <table class="table table-borderless table-sm table-striped" style="width: 100%">
+      <colgroup>
+        <col span="1" style="width: 50%;">
+        <col span="1" style="width: 25%;">
+        <col span="1" style="width: 25%;">
+      </colgroup>
+      <thead>
+        <tr>
+          <td>
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="global_units"
+              onchange="set_global_units(this.value);check_specs_and_units()">
+              <option value="Industrial" selected>Industrial</option>
+              <option value="Metric">Metric</option>
+              <option value="SI">SI</option>
+              <option value="Imperial">Imperial</option>
+            </select>
+          </td>
+          <td colspan="2">
+            <div id="ready_to_calc" hidden>false</div>
+            <button type="button" class="btn btn-outline-primary btn-sm disabled w-100" id="do_calc">
+              Enter two specifications
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="spec1_type"
+              onchange="set_spec_units(this.value, '#spec1_units', $('#global_units').val());check_specs_and_units()">
+              <option value="Press." selected>Pressure</option>
+              <option value="Temp.">Temperature</option>
+              <option value="Qual.">Quality</option>
+              <option value="Enthalpy">Enthalpy</option>
+              <option value="Entropy">Entropy</option>
+            </select>
+          </td>
+          <td>
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="spec1_units"
+              onchange="check_specs_and_units()"></select>
+          </td>
+          <td>
+            <input class="form-control form-control-sm" type="number" aria-label=".form-control-sm example"
+              id="spec1_value" oninput="check_specs_and_units()" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="spec2_type"
+              onchange="set_spec_units(this.value, '#spec2_units',$('#global_units').val());check_specs_and_units()">
+              <option value="Press.">Pressure</option>
+              <option value="Temp." selected>Temperature</option>
+              <option value="Qual.">Quality</option>
+              <option value="Enthalpy">Enthalpy</option>
+              <option value="Entropy">Entropy</option>
+            </select>
+          </td>
+          <td>
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="spec2_units"
+              onchange="check_specs_and_units()"></select>
+          </td>
+          <td>
+            <input class="form-control form-control-sm" type="number" aria-label=".form-control-sm example"
+              id="spec2_value" oninput="check_specs_and_units()" />
+          </td>
+        </tr>
+      </thead>
+      <!-- VALUE RESULT AREA -->
+      <tbody class="spacing">
+        <tr class="table-dark">
+          <td></td>
+          <td>Units</td>
+          <td>Value</td>
+        </tr>
+        <tr>
+          <td>Quality /x</td>
+          <td></td>
+          <td>
+            <div id="out_qual_tot_value_calc" style="text-align: right;"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Quality/x<sub>VOL</sub></td>
+          <td></td>
+          <td>
+            <div id="out_qual_vol_tot_value_calc" style="text-align: right;"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Pressure /P</td>
+          <td>
+            <div id="out_press_value" hidden></div>
+            <select id="out_press_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
+              onchange="update_units('MPa', this.value, ['#out_press_value', '#out_press_value', '#out_press_value'], ['#out_press_value_tot','#out_press_value_vap', '#out_press_value_liq'])">
+            </select>
+          </td>
+          <td>
+            <div id="out_press_value_tot" style="text-align: right;"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Temperature /T</td>
+          <td>
+            <div id="out_temp_value" hidden></div>
+            <select id="out_temp_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
+              onchange="update_units('K', this.value, ['#out_temp_value'], ['#out_temp_value_tot'])">
+            </select>
+          </td>
+          <td>
+            <div id="out_temp_value_tot" style="text-align: right;"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Enthalpy /h</td>
+          <td>
+            <div id="out_h_tot_value_calc" hidden></div>
+            <select id="out_h_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
+              onchange="update_units('kJ/kg', this.value, ['#out_h_tot_value_calc'], ['#out_h_value_tot'])">
+            </select>
+          </td>
+          <td>
+            <div id="out_h_value_tot" style="text-align: right;"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Internal Energy /u</td>
+          <td>
+            <div id="out_u_tot_value_calc" hidden></div>
+            <select id="out_u_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
+              onchange="update_units('kJ/kg', this.value, ['#out_u_tot_value_calc'], ['#out_u_value_tot'])">
+            </select>
+          </td>
+          <td>
+            <div id="out_u_value_tot" style="text-align: right;"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Entropy /s</td>
+          <td>
+            <div id="out_s_tot_value_calc" hidden></div>
+            <select id="out_s_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
+              onchange="update_units('kJ/kg-K', this.value, ['#out_s_tot_value_calc'], ['#out_s_value_tot'])">
+            </select>
+          </td>
+          <td>
+            <div id="out_s_value_tot" style="text-align: right;"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Density /&rho;</td>
+          <td>
+            <div id="out_dens_tot_value_calc" hidden></div>
+            <select id="out_dens_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
+              onchange="update_units('kg/m3', this.value, ['#out_dens_tot_value_calc'], ['#out_dens_value_tot'])">
+            </select>
+          </td>
+          <td>
+            <div id="out_dens_value_tot" style="text-align: right;"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Specific Volume /v</td>
+          <td>
+            <div id="out_vol_tot_value_calc" hidden></div>
+            <select id="out_vol_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
+              onchange="update_units('m3/kg', this.value, ['#out_vol_tot_value_calc'], ['#out_vol_value_tot'])">
+            </select>
+          </td>
+          <td>
+            <div id="out_vol_value_tot" style="text-align: right;"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Const. Press. Heat Capacity /C<sub>p</sub></td>
+          <td>
+            <div id="out_cp_tot_value_calc" hidden></div>
+            <select id="out_cp_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
+              onchange="update_units('kJ/kg-K', this.value, ['#out_cp_tot_value_calc'], ['#out_cp_value_tot'])">
+            </select>
+          </td>
+          <td>
+            <div id="out_cp_value_tot" style="text-align: right;"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Const. Vol. Heat Capacity /C<sub>v</sub></td>
+          <td>
+            <div id="out_cv_tot_value_calc" hidden></div>
+            <select id="out_cv_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
+              onchange="update_units('kJ/kg-K', this.value, ['#out_cv_tot_value_calc'], ['#out_cv_value_tot'])">
+            </select>
+          </td>
+          <td>
+            <div id="out_cv_value_tot" style="text-align: right;"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Speed of Sound /w</td>
+          <td>
+            <div id="out_sos_tot_value_calc" hidden></div>
+            <select id="out_sos_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
+              onchange="update_units('m/s', this.value, ['#out_sos_tot_value_calc'], ['#out_sos_value_tot'])">
+            </select>
+          </td>
+          <td>
+            <div id="out_sos_value_tot" style="text-align: right;"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Viscosity /&mu;</td>
+          <td>
+            <div id="out_visc_tot_value_calc" hidden></div>
+            <select id="out_visc_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
+              onchange="update_units('Pa-s', this.value, ['#out_visc_tot_value_calc'], ['#out_visc_value_tot'])">
+            </select>
+          </td>
+          <td>
+            <div id="out_visc_value_tot" style="text-align: right;"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Therm Conductivity /k</td>
+          <td>
+            <div id="out_thcon_tot_value_calc" hidden></div>
+            <select id="out_thcon_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
+              onchange="update_units('W/(m-K)', this.value, ['#out_thcon_tot_value_calc'], ['#out_thcon_value_tot'])">
+            </select>
+          </td>
+          <td>
+            <div id="out_thcon_value_tot" style="text-align: right;"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Prandtl /Pr</td>
+          <td></td>
+          <td>
+            <div id="out_pr_tot_value_calc" style="text-align: right;"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>C<sub>p</sub>/C<sub>v</sub> ratio /k</td>
+          <td></td>
+          <td>
+            <div id="out_cpcv_tot_value_calc" style="text-align: right;"></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-        <tbody>
-          <tr>
-            <td>Quality /x</td>
-            <td></td>
-            <td>
-              <div id="out_qual_tot_value_calc"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Quality/x<sub>VOL</sub></td>
-            <td></td>
-            <td>
-              <div id="out_qual_vol_tot_value_calc"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Pressure /P</td>
-            <td>
-              <div id="out_press_value" hidden></div>
-              <select id="out_press_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
-                onchange="update_units('MPa', this.value, ['#out_press_value', '#out_press_value', '#out_press_value'], ['#out_press_value_tot','#out_press_value_vap', '#out_press_value_liq'])">
-              </select>
-            </td>
-            <td>
-              <div id="out_press_value_tot"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Temperature /T</td>
-            <td>
-              <div id="out_temp_value" hidden></div>
-              <select id="out_temp_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
-                onchange="update_units('K', this.value, ['#out_temp_value'], ['#out_temp_value_tot'])">
-              </select>
-            </td>
-            <td>
-              <div id="out_temp_value_tot"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Enthalpy /h</td>
-            <td>
-              <div id="out_h_tot_value_calc" hidden></div>
-              <select id="out_h_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
-                onchange="update_units('kJ/kg', this.value, ['#out_h_tot_value_calc'], ['#out_h_value_tot'])">
-              </select>
-            </td>
-            <td>
-              <div id="out_h_value_tot"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Internal Energy /u</td>
-            <td>
-              <div id="out_u_tot_value_calc" hidden></div>
-              <select id="out_u_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
-                onchange="update_units('kJ/kg', this.value, ['#out_u_tot_value_calc'], ['#out_u_value_tot'])">
-              </select>
-            </td>
-            <td>
-              <div id="out_u_value_tot"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Entropy /s</td>
-            <td>
-              <div id="out_s_tot_value_calc" hidden></div>
-              <select id="out_s_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
-                onchange="update_units('kJ/kg-K', this.value, ['#out_s_tot_value_calc'], ['#out_s_value_tot'])">
-              </select>
-            </td>
-            <td>
-              <div id="out_s_value_tot"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Density /&rho;</td>
-            <td>
-              <div id="out_dens_tot_value_calc" hidden></div>
-              <select id="out_dens_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
-                onchange="update_units('kg/m3', this.value, ['#out_dens_tot_value_calc'], ['#out_dens_value_tot'])">
-              </select>
-            </td>
-            <td>
-              <div id="out_dens_value_tot"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Specific Volume /v</td>
-            <td>
-              <div id="out_vol_tot_value_calc" hidden></div>
-              <select id="out_vol_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
-                onchange="update_units('m3/kg', this.value, ['#out_vol_tot_value_calc'], ['#out_vol_value_tot'])">
-              </select>
-            </td>
-            <td>
-              <div id="out_vol_value_tot"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Const. Press. Heat Capacity /C<sub>p</sub></td>
-            <td>
-              <div id="out_cp_tot_value_calc" hidden></div>
-              <select id="out_cp_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
-                onchange="update_units('kJ/kg-K', this.value, ['#out_cp_tot_value_calc'], ['#out_cp_value_tot'])">
-              </select>
-            </td>
-            <td>
-              <div id="out_cp_value_tot"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Const. Vol. Heat Capacity /C<sub>v</sub></td>
-            <td>
-              <div id="out_cv_tot_value_calc" hidden></div>
-              <select id="out_cv_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
-                onchange="update_units('kJ/kg-K', this.value, ['#out_cv_tot_value_calc'], ['#out_cv_value_tot'])">
-              </select>
-            </td>
-            <td>
-              <div id="out_cv_value_tot"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Speed of Sound /w</td>
-            <td>
-              <div id="out_sos_tot_value_calc" hidden></div>
-              <select id="out_sos_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
-                onchange="update_units('m/s', this.value, ['#out_sos_tot_value_calc'], ['#out_sos_value_tot'])">
-              </select>
-            </td>
-            <td>
-              <div id="out_sos_value_tot"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Viscosity /&mu;</td>
-            <td>
-              <div id="out_visc_tot_value_calc" hidden></div>
-              <select id="out_visc_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
-                onchange="update_units('Pa-s', this.value, ['#out_visc_tot_value_calc'], ['#out_visc_value_tot'])">
-              </select>
-            </td>
-            <td>
-              <div id="out_visc_value_tot"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Therm Conductivity /k</td>
-            <td>
-              <div id="out_thcon_tot_value_calc" hidden></div>
-              <select id="out_thcon_units" class="form-select form-select-sm" aria-label=".form-select-sm example"
-                onchange="update_units('W/(m-K)', this.value, ['#out_thcon_tot_value_calc'], ['#out_thcon_value_tot'])">
-              </select>
-            </td>
-            <td>
-              <div id="out_thcon_value_tot"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Prandtl /Pr</td>
-            <td></td>
-            <td>
-              <div id="out_pr_tot_value_calc"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>C<sub>p</sub>/C<sub>v</sub> ratio /k</td>
-            <td></td>
-            <td>
-              <div id="out_cpcv_tot_value_calc"></div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
   </main>
+
+
+
+
+
+
 
 
   <script>
