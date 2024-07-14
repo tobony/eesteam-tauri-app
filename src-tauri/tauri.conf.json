@@ -13,7 +13,11 @@
   },
   "tauri": {
     "allowlist": {
-      "all": false
+      "all": false,
+      "shell": {
+        "all": false,
+        "open": true
+      }
     },
     "bundle": {
       "active": true,
@@ -54,11 +58,11 @@
     },
     "windows": [
       {
-        "fullscreen": false,
+        "title": "eeSteam App - Steam Table",
         "width": 550,
         "height": 900,
         "resizable": true,
-        "title": "eeSteam App - Steam Table"
+        "fullscreen": false
       }
     ]
   }
