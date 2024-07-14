@@ -170,7 +170,7 @@
 // # vx_ph	Vapour volume fraction as a function of pressure and enthalpy
 // # vx_ps	Vapour volume fraction as a function of pressure and entropy.
 
-let xsteam2 = (function() {
+export let xsteam2 = (function() {
     'use strict';
     let T1_ph_I1, T1_ph_J1, T1_ph_n1, T1_ps_I1, T1_ps_J1, T1_ps_n1, T2_ph_part1_Ii, T2_ph_part1_Ji, T2_ph_part1_ni,
         T2_ph_part2_Ii, T2_ph_part2_Ji, T2_ph_part2_ni, T2_ph_part3_Ii, T2_ph_part3_Ji, T2_ph_part3_ni, T2_ps_part1_Ii,
