@@ -9,7 +9,7 @@
   },
   "package": {
     "productName": "eeSteam",
-    "version": "0.9.0"
+    "version": "0.9.5"
   },
   "tauri": {
     "allowlist": {
@@ -32,7 +32,7 @@
         "icons/icon_ee_blue-128.png",
         "icons/icon_ee_blue_256_WXR_icon.ico"
       ],
-      "identifier": "com.eefunction.dev",
+      "identifier": "eesteam.Tobony.dev",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -41,9 +41,10 @@
         "providerShortName": null,
         "signingIdentity": null
       },
-      "resources": [],
+      "resources": [
+      ],
       "shortDescription": "",
-      "targets": "all",
+      "targets": "nsis",
       "windows": {
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
