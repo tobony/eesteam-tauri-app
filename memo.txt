@@ -1,0 +1,3 @@
+
+
+yarn tauri build --debug
