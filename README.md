@@ -13,7 +13,7 @@ pnpm tauri dev
 pnpm tauri build
 ```
 
-
+<br />
 
 ## to install App
 in sub-folder `/version`     
