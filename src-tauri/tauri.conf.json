@@ -3,68 +3,60 @@
   "build": {
     "beforeBuildCommand": "npm run build",
     "beforeDevCommand": "npm run dev",
-    "devPath": "http://localhost:5173",
-    "distDir": "../dist",
-    "withGlobalTauri": true
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:5173"
   },
-  "package": {
-    "productName": "eeSteam",
-    "version": "0.9.5"
-  },
-  "tauri": {
-    "allowlist": {
-      "all": false,
-      "shell": {
-        "all": false,
-        "open": true
-      }
+  "bundle": {
+    "active": true,
+    "category": "Utility",
+    "copyright": "tobony",
+    "targets": "nsis",
+    "externalBin": [],
+    "icon": [
+      "icons/icon_ee_blue-32.png",
+      "icons/icon_ee_blue-128.png",
+      "icons/icon_ee_blue_256_WXR_icon.ico"
+    ],
+    "windows": {
+      "certificateThumbprint": null,
+      "digestAlgorithm": "sha256",
+      "timestampUrl": ""
     },
-    "bundle": {
-      "active": true,
-      "category": "Utility",
-      "copyright": "tobony",
+    "longDescription": "",
+    "macOS": {
+      "entitlements": null,
+      "exceptionDomain": "",
+      "frameworks": [],
+      "providerShortName": null,
+      "signingIdentity": null
+    },
+    "resources": [],
+    "shortDescription": "",
+    "linux": {
       "deb": {
         "depends": []
-      },
-      "externalBin": [],
-      "icon": [
-        "icons/icon_ee_blue-32.png",
-        "icons/icon_ee_blue-128.png",
-        "icons/icon_ee_blue_256_WXR_icon.ico"
-      ],
-      "identifier": "eesteam.Tobony.dev",
-      "longDescription": "",
-      "macOS": {
-        "entitlements": null,
-        "exceptionDomain": "",
-        "frameworks": [],
-        "providerShortName": null,
-        "signingIdentity": null
-      },
-      "resources": [
-      ],
-      "shortDescription": "",
-      "targets": "nsis",
-      "windows": {
-        "certificateThumbprint": null,
-        "digestAlgorithm": "sha256",
-        "timestampUrl": ""
       }
-    },
-    "security": {
-      "csp": null
-    },
-    "updater": {
-      "active": false
-    },
+    }
+  },
+  "productName": "eeSteam",
+  "mainBinaryName": "eeSteam",
+  "version": "0.9.5",
+  "identifier": "eesteam.tobony.dev",
+  "plugins": {},
+  "app": {
+    "withGlobalTauri": true,
     "windows": [
       {
         "title": "eeSteam App - Steam Table",
         "width": 550,
         "height": 900,
         "resizable": true,
-        "fullscreen": false
+        "fullscreen": false,
+        "useHttpsScheme": true
       }
-    ]
+    ],
+    "security": {
+      "csp": null
+    }
   }
 }
