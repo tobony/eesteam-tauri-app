@@ -16,7 +16,7 @@ pnpm tauri build
 
 
 ## to install App
-in sub-folder `/version`
+in sub-folder `/version`     
 install `eeSteam_0.9.5_x64-setup.exe`
 
 <br />
