@@ -27,3 +27,5 @@ dist-ssr
 *.sw?
 
 version/*
+# 특정 패턴의 파일 제외
+!version/eeSteam_*_x64-setup.exe

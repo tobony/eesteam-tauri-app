@@ -1,4 +1,17 @@
-# eeSteam Desktop App
+# eeSteam App
+
+## to debug
+```
+pnpm install    
+pnpm tauri dev
+```
+
+<br />
+
+## to build
+```
+pnpm tauri build
+```
 
 
 
