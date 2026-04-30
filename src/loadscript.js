@@ -1,4 +1,5 @@
 import { xsteam2 } from "./xsteam2.js";
+import { blendByQuality } from "./utils/quality.js";
 
 function test_calculate() {
   var num1 = parseFloat(document.getElementById('num1').value);
@@ -129,36 +130,36 @@ function actual_calculate_press_qual(press, qual) {
 
   let vol_vap = xsteam2.vV_p(press);
   let vol_liq = xsteam2.vL_p(press);
-  let vol_calc = [vol_vap, vol_liq, qual * vol_vap + (1 - qual) * vol_liq];
+  let vol_calc = [vol_vap, vol_liq, blendByQuality(vol_vap, vol_liq, qual)];
 
   let rho_calc = [1 / vol_calc[0], 1 / vol_calc[1], 1 / vol_calc[2]];
 
   let h_vap = xsteam2.hV_p(press);
   let h_liq = xsteam2.hL_p(press);
-  let h_tot = qual * h_vap + (1 - qual) * h_liq;
+  let h_tot = blendByQuality(h_vap, h_liq, qual);
   let h_calc = [h_vap, h_liq, h_tot];
 
   let qual_vol_calc = [1, 0, xsteam2.vx_ph(press, h_tot)];
 
   let u_vap = xsteam2.uV_p(press);
   let u_liq = xsteam2.uL_p(press);
-  let u_calc = [u_vap, u_liq, qual * u_vap + (1 - qual) * u_liq];
+  let u_calc = [u_vap, u_liq, blendByQuality(u_vap, u_liq, qual)];
 
   let s_vap = xsteam2.sV_p(press);
   let s_liq = xsteam2.sL_p(press);
-  let s_calc = [s_vap, s_liq, qual * s_vap + (1 - qual) * s_liq];
+  let s_calc = [s_vap, s_liq, blendByQuality(s_vap, s_liq, qual)];
 
   let Cp_vap = xsteam2.CpV_p(press);
   let Cp_liq = xsteam2.CpL_p(press);
-  let Cp_calc = [Cp_vap, Cp_liq, qual * Cp_vap + (1 - qual) * Cp_liq];
+  let Cp_calc = [Cp_vap, Cp_liq, blendByQuality(Cp_vap, Cp_liq, qual)];
 
   let Cv_vap = xsteam2.CvV_p(press);
   let Cv_liq = xsteam2.CvL_p(press);
-  let Cv_calc = [Cv_vap, Cv_liq, qual * Cv_vap + (1 - qual) * Cv_liq];
+  let Cv_calc = [Cv_vap, Cv_liq, blendByQuality(Cv_vap, Cv_liq, qual)];
 
   let w_vap = xsteam2.wV_p(press);
   let w_liq = xsteam2.wL_p(press);
-  let w_calc = [w_vap, w_liq, qual * w_vap + (1 - qual) * w_liq];
+  let w_calc = [w_vap, w_liq, blendByQuality(w_vap, w_liq, qual)];
 
   let my_vap = xsteam2.my_ph(press, h_vap);
   let my_liq = xsteam2.my_ph(press, h_liq);
