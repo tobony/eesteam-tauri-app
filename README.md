@@ -14,6 +14,7 @@ pnpm tauri build
 ## Testing and checks
 ```bash
 pnpm test
+
 pnpm run build
 git diff --check
 ```
