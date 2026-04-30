@@ -1,0 +1,113 @@
+name: manual-release-tauri
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: "Release tag name (example: v0.1.0)"
+        required: true
+        type: string
+      release_name:
+        description: "GitHub Release title (optional)"
+        required: false
+        type: string
+      target_commitish:
+        description: "Commit SHA or branch name used when creating the release tag"
+        required: false
+        default: main
+        type: string
+      draft:
+        description: "Create as draft release"
+        required: false
+        default: false
+        type: boolean
+      prerelease:
+        description: "Mark release as pre-release"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install frontend dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Tauri bundle
+        run: pnpm tauri build
+
+      - name: Resolve metadata and collect bundle assets
+        id: collect
+        shell: pwsh
+        env:
+          TAG_NAME: ${{ inputs.tag_name }}
+          RELEASE_NAME_INPUT: ${{ inputs.release_name }}
+          WORKSPACE: ${{ github.workspace }}
+        run: |
+          if ([string]::IsNullOrWhiteSpace($env:RELEASE_NAME_INPUT)) {
+            $releaseName = "eeSteam $($env:TAG_NAME)"
+          } else {
+            $releaseName = $env:RELEASE_NAME_INPUT
+          }
+
+          $bundleRoot = Join-Path $env:WORKSPACE "src-tauri/target/release/bundle"
+          if (-not (Test-Path $bundleRoot)) {
+            throw "Bundle root not found: $bundleRoot"
+          }
+
+          $patterns = @("*.msi", "*.exe", "*.zip", "*.msix")
+          $assetsDir = Join-Path $env:WORKSPACE "release-assets"
+          New-Item -ItemType Directory -Force -Path $assetsDir | Out-Null
+
+          $collected = @()
+          foreach ($pattern in $patterns) {
+            Get-ChildItem -Path $bundleRoot -Recurse -File -Filter $pattern | ForEach-Object {
+              $destName = "{0}-{1}{2}" -f $_.BaseName, $env:TAG_NAME, $_.Extension
+              $destPath = Join-Path $assetsDir $destName
+              Copy-Item -Path $_.FullName -Destination $destPath -Force
+              $collected += $destPath
+            }
+          }
+
+          if ($collected.Count -eq 0) {
+            throw "No release assets were found under $bundleRoot"
+          }
+
+          "release_name=$releaseName" >> $env:GITHUB_OUTPUT
+          "files<<EOF" >> $env:GITHUB_OUTPUT
+          $collected | ForEach-Object { $_ >> $env:GITHUB_OUTPUT }
+          "EOF" >> $env:GITHUB_OUTPUT
+
+          "## Uploaded asset candidates" >> $env:GITHUB_STEP_SUMMARY
+          $collected | ForEach-Object { "- $($_)" >> $env:GITHUB_STEP_SUMMARY }
+
+      - name: Upload release asset(s)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.tag_name }}
+          target_commitish: ${{ inputs.target_commitish }}
+          name: ${{ steps.collect.outputs.release_name }}
+          draft: ${{ inputs.draft }}
+          prerelease: ${{ inputs.prerelease }}
+          files: ${{ steps.collect.outputs.files }}

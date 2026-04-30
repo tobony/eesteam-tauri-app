@@ -1,0 +1,17 @@
+[
+  {
+    "name": "press-qual-mid",
+    "input": { "press": 1, "quality": 0.5 },
+    "expected": { "h_total": 60 }
+  },
+  {
+    "name": "press-qual-liquid",
+    "input": { "press": 1, "quality": 0 },
+    "expected": { "h_total": 20 }
+  },
+  {
+    "name": "press-qual-vapor",
+    "input": { "press": 1, "quality": 1 },
+    "expected": { "h_total": 100 }
+  }
+]

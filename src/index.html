@@ -54,7 +54,7 @@
             </select>
           </td>
           <td colspan="2">
-            <div id="ready_to_calc" hidden>false</div>
+            <div id="ready_to_calc" hidden aria-live="polite">false</div>
             <button type="button" class="btn btn-outline-primary btn-sm disabled w-100" id="do_calc">
               Enter two specifications
             </button>
@@ -76,7 +76,7 @@
               onchange="check_specs_and_units()"></select>
           </td>
           <td>
-            <input class="form-control form-control-sm" type="number" aria-label=".form-control-sm example"
+            <input class="form-control form-control-sm" type="number" aria-label=".form-control-sm example" aria-invalid="false"
               id="spec1_value" oninput="check_specs_and_units()" />
           </td>
         </tr>
@@ -96,7 +96,7 @@
               onchange="check_specs_and_units()"></select>
           </td>
           <td>
-            <input class="form-control form-control-sm" type="number" aria-label=".form-control-sm example"
+            <input class="form-control form-control-sm" type="number" aria-label=".form-control-sm example" aria-invalid="false"
               id="spec2_value" oninput="check_specs_and_units()" />
           </td>
         </tr>
