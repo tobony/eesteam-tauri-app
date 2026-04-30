@@ -1,3 +1,5 @@
+import { validateSpecPairContract, validateSpecValue } from "./spec-validation.js";
+
 export function clampQuality(quality) {
   if (quality < 0) return 0;
   if (quality > 1) return 1;
@@ -7,13 +9,19 @@ export function clampQuality(quality) {
 export function validateSpecPair(specs) {
   const keys = Object.keys(specs);
   if (keys.length !== 2) {
-    return { ok: false, message: "두 개의 사양을 입력해주세요." };
+    return { ok: false, code: "SPEC_COUNT_MISMATCH", message: "두 개의 사양을 입력해주세요.", hint: "Enter exactly two specification values." };
+  }
+
+  const pairValidation = validateSpecPairContract(keys[0], keys[1]);
+  if (!pairValidation.ok) {
+    return pairValidation;
   }
 
   for (const key of keys) {
     const value = specs[key];
-    if (!Number.isFinite(value)) {
-      return { ok: false, message: `${key} 값이 올바르지 않습니다.` };
+    const valueValidation = validateSpecValue(key, value);
+    if (!valueValidation.ok) {
+      return valueValidation;
     }
   }
 

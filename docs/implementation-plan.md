@@ -93,3 +93,49 @@ Systematically improve UX clarity, runtime safety, TDD workflow, and CI efficien
 2. `pnpm run build`
 3. `git diff --check`
 4. `git status --short --branch`
+
+## Next execution step (improved, ready to implement)
+### Sprint N+1 objective (1 week)
+Deliver a safe split between UI and compute paths with measurable tests.
+
+### Task N+1.1 - Contract-first validation module
+- Create `src/utils/spec-validation.js` with:
+  - `validateSpecValue(type, value)`
+  - `validateSpecPairContract(spec1Type, spec2Type)`
+  - standardized error codes (`INVALID_NUMBER`, `OUT_OF_RANGE`, `UNSUPPORTED_PAIR`)
+- Add unit tests first (target: +8 assertions minimum).
+- Acceptance:
+  - invalid values produce stable error code + human-readable guidance.
+  - all currently supported pairs pass contract checks.
+
+### Task N+1.2 - Compute layer extraction (minimal slice)
+- Extract first pure compute functions:
+  - `computeByPressQual`
+  - `computeByTempPress`
+- Keep current output shape unchanged to avoid UI breakage.
+- Acceptance:
+  - `loadscript.js` route handler delegates these two paths to extracted pure functions.
+  - no regression in existing test suite.
+
+### Task N+1.3 - Error-state UX contract
+- Define button status contract:
+  - `loading`: `Calculating...`
+  - `success`: `Results Available`
+  - `error`: `Calculation error: <message>`
+- Preserve previous successful output on error path.
+- Acceptance:
+  - status transitions covered by at least 2 integration-like tests (or documented manual checks if DOM harness unavailable).
+
+### Task N+1.4 - CI small hardening
+- Add `concurrency` block to `ci-lite` to cancel stale PR runs.
+- Keep scope minimal: no new dependencies.
+- Acceptance:
+  - workflow syntax valid.
+  - existing CI steps unchanged and still green.
+
+### N+1 verification gate
+1. `pnpm test`
+2. `pnpm run build`
+3. `git diff --check`
+4. update `docs/progress-tracker.md` for N+1 tasks (`In Progress` -> `Done/Blocked`)
+5. append command outcomes in `docs/test-log.md`

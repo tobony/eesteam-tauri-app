@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "lint": "node --check src/loadscript.js src/utils/*.js tests/*.test.js",
     "test": "node --test",
     "preview": "vite preview",
     "tauri": "tauri"

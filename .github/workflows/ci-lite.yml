@@ -10,6 +10,10 @@ on:
       - "pnpm-lock.yaml"
       - ".github/workflows/ci-lite.yml"
 
+concurrency:
+  group: ci-lite-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build-and-diff-check:
     runs-on: ubuntu-latest
@@ -23,6 +27,7 @@ jobs:
           node-version: 20
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm run lint
       - run: pnpm run build
       - run: pnpm test
       - run: git diff --check
