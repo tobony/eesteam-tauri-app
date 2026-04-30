@@ -9,7 +9,6 @@
 | Documentation updates | Done | Updated README with development/testing/CI sections. |
 
 | PR-only CI optimization + unit test skeleton | Done | Restrict CI to PR + paths filter and add Node test skeleton. |
-
 | UX/runtime safety and routing fix | Done | Add input validation and user-visible error handling. |
 | Unit-test expansion for validation/routing | Done | Add node unit tests for guard logic. |
-
+| Next-step runtime fallback hardening | Done | Added guarded missing-function handling with user-visible calculation errors. |

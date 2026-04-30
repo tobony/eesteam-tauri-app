@@ -13,6 +13,11 @@ test("validateSpecPair rejects non-finite values", () => {
   assert.equal(result.ok, false);
 });
 
+test("validateSpecPair requires exactly 2 specs", () => {
+  const result = validateSpecPair({ "Press.": 1 });
+  assert.equal(result.ok, false);
+});
+
 test("resolveCalculationRoute returns expected route", () => {
   assert.equal(resolveCalculationRoute({ "Press.": 1, "Qual.": 0.5 }), "press-qual");
   assert.equal(resolveCalculationRoute({ "Temp.": 450, "Entropy": 7 }), "unsupported");

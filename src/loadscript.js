@@ -1,8 +1,6 @@
 import { xsteam2 } from "./xsteam2.js";
 import { blendByQuality } from "./utils/quality.js";
-
 import { clampQuality, resolveCalculationRoute, validateSpecPair } from "./utils/calculation-guards.js";
-
 
 function test_calculate() {
   var num1 = parseFloat(document.getElementById('num1').value);
@@ -242,20 +240,18 @@ function actual_calculate_enthalpy_entropy(enthalpy, entropy) {
 }
 
 function actual_calculate_enthalpy_quality(enthalpy, qual) {
-  if (qual < 0) {
-    qual = 0;
-  } else if (qual > 1.0) {
-    qual = 1.0;
+  qual = clampQuality(qual);
+  if (typeof xsteam2.p_hx !== "function") {
+    throw new Error("xsteam2.p_hx is not available in current engine.");
   }
   let calc_press = xsteam2.p_hx(enthalpy, qual);
   return actual_calculate_press_qual(calc_press, qual);
 }
 
 function actual_calculate_entropy_quality(entropy, qual) {
-  if (qual < 0) {
-    qual = 0;
-  } else if (qual > 1.0) {
-    qual = 1.0;
+  qual = clampQuality(qual);
+  if (typeof xsteam2.p_sx !== "function") {
+    throw new Error("xsteam2.p_sx is not available in current engine.");
   }
   let calc_press = xsteam2.p_sx(entropy, qual);
   return actual_calculate_press_qual(calc_press, qual);
@@ -398,36 +394,40 @@ function actual_calculate() {
   // Possible specs...
   // ('T', 's'),
   const route = resolveCalculationRoute(specs_and_values);
-  switch (route) {
-    case "press-qual":
-      actual_calculate_press_qual(specs_and_values["Press."], specs_and_values["Qual."]);
-      break;
-    case "temp-qual":
-      actual_calculate_temp_qual(specs_and_values["Temp."], specs_and_values["Qual."]);
-      break;
-    case "temp-press":
-      actual_calculate_temp_press(specs_and_values["Temp."], specs_and_values["Press."]);
-      break;
-    case "press-enthalpy":
-      actual_calculate_press_enthalpy(specs_and_values["Press."], specs_and_values["Enthalpy"]);
-      break;
-    case "press-entropy":
-      actual_calculate_press_entropy(specs_and_values["Press."], specs_and_values["Entropy"]);
-      break;
-    case "enthalpy-entropy":
-      actual_calculate_enthalpy_entropy(specs_and_values["Enthalpy"], specs_and_values["Entropy"]);
-      break;
-    case "enthalpy-qual":
-      actual_calculate_enthalpy_quality(specs_and_values["Enthalpy"], specs_and_values["Qual."]);
-      break;
-    case "entropy-qual":
-      actual_calculate_entropy_quality(specs_and_values["Entropy"], specs_and_values["Qual."]);
-      break;
-    case "enthalpy-temp":
-      actual_calculate_enthalpy_temp(specs_and_values["Enthalpy"], specs_and_values["Temp."]);
-      break;
-    default:
-      status = "Not a supported specification!";
+  try {
+    switch (route) {
+      case "press-qual":
+        actual_calculate_press_qual(specs_and_values["Press."], specs_and_values["Qual."]);
+        break;
+      case "temp-qual":
+        actual_calculate_temp_qual(specs_and_values["Temp."], specs_and_values["Qual."]);
+        break;
+      case "temp-press":
+        actual_calculate_temp_press(specs_and_values["Temp."], specs_and_values["Press."]);
+        break;
+      case "press-enthalpy":
+        actual_calculate_press_enthalpy(specs_and_values["Press."], specs_and_values["Enthalpy"]);
+        break;
+      case "press-entropy":
+        actual_calculate_press_entropy(specs_and_values["Press."], specs_and_values["Entropy"]);
+        break;
+      case "enthalpy-entropy":
+        actual_calculate_enthalpy_entropy(specs_and_values["Enthalpy"], specs_and_values["Entropy"]);
+        break;
+      case "enthalpy-qual":
+        actual_calculate_enthalpy_quality(specs_and_values["Enthalpy"], specs_and_values["Qual."]);
+        break;
+      case "entropy-qual":
+        actual_calculate_entropy_quality(specs_and_values["Entropy"], specs_and_values["Qual."]);
+        break;
+      case "enthalpy-temp":
+        actual_calculate_enthalpy_temp(specs_and_values["Enthalpy"], specs_and_values["Temp."]);
+        break;
+      default:
+        status = "Not a supported specification!";
+    }
+  } catch (error) {
+    status = `Calculation error: ${error.message}`;
   }
   $("#ready_to_calc").html("false");
   $("#do_calc").addClass("disabled");
